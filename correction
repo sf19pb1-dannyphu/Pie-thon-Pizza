@@ -1,0 +1,58 @@
+"""
+Pie-thon.py
+
+Answers frequently asked questions
+"""
+
+import sys
+import math
+import datetime
+
+#Each question ends with one space.
+
+menu = """\
+Welcome to Pie-thon Pizza recipes! The best pies in the city, located at 25 Broadway!
+Here are some frequently asked quesitons:
+
+A) How many slices of pepperoni will I need?
+B) How many pizzas do I need to feed 'x' amount of people?
+C) How many days until Pie Day?
+
+Choose from the above, type A, B, or C: """
+
+howManyPizzas = """\
+Our ratio is 10 pepperonis to one pizza.
+How many pizzas are you making? """
+
+howManyPeople = """\
+One pizza can feed around four people.
+How many people do you have? """
+
+option = input(menu)
+option = option.lower() #Can combine to option = input(menu).lower()
+print()                 #Skip an empty line.
+
+if option == "a":
+    pepperoni = int(input(howManyPizzas))
+    for p in range(1, pepperoni + 1):
+        print(f"To make {p:2} pizza(s), you will need {10*p:3} slices of pepperonis.")
+        
+elif option == "b":
+    people = int(input(howManyPeople))
+    for ppl in range(1, people+1):
+        print(f"To feed {ppl} people you would need {math.ceil(ppl/4)} pizza(s).")
+
+elif option == "c":
+    today = datetime.datetime.today()       #an object of type datetime
+    year = today.year
+    pieDay = datetime.datetime(year, 3, 14) #another object of type datetime
+    if today > pieDay:       #Have we already passed this year's Pie Day?
+        pieDay = datetime.datetime(year + 1, 3, 14)   #use next year's Pie Day
+    delta = pieDay - today   #distance between two datetimes
+    print(f'{delta.days} days until Pie Day ({pieDay.strftime("%-m/%-d/%Y")})!!')
+   
+else:
+    print("Error: you did not press A, B, or C.  Goodbye!")
+    sys.exit(1)
+    
+sys.exit(0)
